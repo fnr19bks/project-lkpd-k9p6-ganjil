@@ -625,6 +625,8 @@ input[type="range"] {
 .accordion > *:not(summary) { padding: 0 14px 14px; }
 
 /* ---------- 18) MODAL ---------- */
+/* Aturan global: [hidden] selalu menyembunyikan, apa pun display-nya */
+[hidden] { display: none !important; }
 .modal-overlay {
   position: fixed; inset: 0; z-index: 200;
   background: rgba(0,0,0,0.65);
