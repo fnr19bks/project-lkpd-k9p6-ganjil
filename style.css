@@ -66,7 +66,8 @@ body {
   background: var(--color-bg);
   color: var(--color-text);
   line-height: 1.55;
-  padding-top: var(--header-h);
+  /* Topbar bersifat sticky, jadi TIDAK perlu padding-top */
+  padding-top: 0;
   padding-bottom: calc(var(--footer-h) + 8px);
   min-height: 100vh;
   transition: background 0.25s ease, color 0.25s ease;
@@ -97,22 +98,41 @@ a { color: var(--color-secondary); }
 }
 .skip-link:focus { top: 0; }
 
-/* ---------- 2) HEADER ---------- */
-.app-header {
-  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
-  height: var(--header-h);
+/* ---------- 2) TOPBAR (STICKY: HEADER + PROGRESS) ---------- */
+.app-topbar {
+  position: sticky;
+  top: 0;
+  z-index: 100;
   background: var(--color-card);
-  border-bottom: 1px solid var(--color-border);
+  /* Ruang aman bila header tumbuh (multi-baris) */
   box-shadow: 0 2px 8px rgba(0,0,0,0.05);
 }
-.header-inner {
-  max-width: 1400px; margin: 0 auto; height: 100%;
-  padding: 0 14px;
-  display: flex; align-items: center; gap: 14px;
-  flex-wrap: nowrap;
+
+/* ---------- 3) HEADER ---------- */
+.app-header {
+  background: var(--color-card);
+  border-bottom: 1px solid var(--color-border);
+  /* Tidak lagi fixed; tinggi mengikuti isi */
 }
-.brand { display: flex; align-items: center; gap: 10px; min-width: 0; flex-shrink: 1; }
-.logo { width: 44px; height: 44px; border-radius: 8px; object-fit: contain; background: #fff; padding: 2px; }
+.header-inner {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 8px 14px;
+  display: flex;
+  align-items: center;
+  gap: 10px 14px;
+  flex-wrap: wrap;       /* izinkan turun baris bila sempit */
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-width: 0;
+  flex: 1 1 260px;       /* brand boleh melebar/menyusut */
+  order: 1;
+}
+.logo { width: 44px; height: 44px; border-radius: 8px; object-fit: contain; background: #fff; padding: 2px; flex-shrink: 0; }
 .brand-text { min-width: 0; }
 .brand-title {
   margin: 0; font-size: 1rem; font-weight: 800;
@@ -121,7 +141,14 @@ a { color: var(--color-secondary); }
 }
 .brand-sub { margin: 0; font-size: 0.75rem; color: var(--color-muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 
-.header-tools { display: flex; align-items: center; gap: 6px; margin-left: auto; flex-wrap: wrap; }
+.header-tools {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-wrap: wrap;
+  order: 2;
+}
+
 .icon-btn, .ghost-btn, .tool-select {
   min-height: 40px; min-width: 44px;
   border-radius: var(--radius-sm);
@@ -141,7 +168,12 @@ a { color: var(--color-secondary); }
 .ghost-btn.danger:hover { background: rgba(198,40,40,0.12); border-color: var(--color-danger); color: var(--color-danger); }
 .ghost-btn span, .btn span { display: inline; }
 
-.hud { display: flex; align-items: center; gap: 10px; margin-left: 6px; }
+.hud {
+  display: flex; align-items: center; gap: 10px;
+  flex-wrap: wrap;
+  margin-left: auto;
+  order: 3;
+}
 .score-box {
   background: linear-gradient(135deg, var(--color-primary), var(--color-secondary));
   color: #fff; padding: 6px 12px; border-radius: 999px;
@@ -149,7 +181,7 @@ a { color: var(--color-secondary); }
   box-shadow: var(--shadow-card);
 }
 .score-max { opacity: 0.8; font-weight: 500; }
-.badge-strip { list-style: none; display: flex; gap: 4px; margin: 0; padding: 0; }
+.badge-strip { list-style: none; display: flex; gap: 4px; margin: 0; padding: 0; flex-wrap: wrap; }
 .badge-strip li {
   font-size: 1.25rem; width: 34px; height: 34px;
   display: flex; align-items: center; justify-content: center;
@@ -164,9 +196,8 @@ a { color: var(--color-secondary); }
   100% { transform: scale(1); }
 }
 
-/* ---------- 3) PROGRESS BAR ---------- */
+/* ---------- 4) PROGRESS BAR ---------- */
 .progress-wrap {
-  position: fixed; top: var(--header-h); left: 0; right: 0; z-index: 99;
   background: var(--color-card);
   border-bottom: 1px solid var(--color-border);
   padding: 6px 14px 8px;
@@ -198,14 +229,14 @@ a { color: var(--color-secondary); }
   font-size: 0.72rem; color: var(--color-muted);
 }
 
-/* Sisakan ruang untuk progress bar */
+/* ---------- 5) MAIN ---------- */
 .app-main {
   max-width: 1100px;
   margin: 0 auto;
-  padding: calc(56px + 16px) 16px 24px;
+  padding: 20px 16px 24px;
 }
 
-/* ---------- 4) SCREEN ---------- */
+/* ---------- 6) SCREEN ---------- */
 .screen { display: none; animation: fade-slide 0.35s ease; }
 .screen.is-active { display: block; }
 
@@ -214,7 +245,7 @@ a { color: var(--color-secondary); }
   to { opacity: 1; transform: translateY(0); }
 }
 
-/* ---------- 5) KARTU ---------- */
+/* ---------- 7) KARTU ---------- */
 .card {
   background: var(--color-card);
   border: 1px solid var(--color-border);
@@ -253,7 +284,7 @@ h4 { font-size: 1rem; margin: 12px 0 6px; }
 }
 [data-theme="dark"] .chip { color: var(--color-accent); }
 
-/* ---------- 6) GRID ---------- */
+/* ---------- 8) GRID ---------- */
 .grid { display: grid; gap: 14px; }
 .grid-2 { grid-template-columns: 1fr; }
 .grid-3 { grid-template-columns: 1fr; }
@@ -265,7 +296,7 @@ h4 { font-size: 1rem; margin: 12px 0 6px; }
   .grid-3 { grid-template-columns: repeat(3, 1fr); }
 }
 
-/* ---------- 7) TOMBOL ---------- */
+/* ---------- 9) TOMBOL ---------- */
 .btn {
   min-height: 48px; min-width: 44px;
   padding: 10px 20px;
@@ -297,7 +328,7 @@ h4 { font-size: 1rem; margin: 12px 0 6px; }
 }
 .btn-row.center-row { justify-content: center; }
 
-/* ---------- 8) FORM ---------- */
+/* ---------- 10) FORM ---------- */
 .field { display: block; margin-bottom: 12px; }
 .field > span, .field > legend {
   display: block; font-weight: 700; font-size: 0.88rem;
@@ -335,7 +366,7 @@ h4 { font-size: 1rem; margin: 12px 0 6px; }
 .inline-select { display: inline-block; width: auto; min-width: 130px; margin: 0 4px; vertical-align: middle; }
 .analysis-line { line-height: 2.4; font-size: 1rem; }
 
-/* ---------- 9) TABEL SHEETS ---------- */
+/* ---------- 11) TABEL SHEETS ---------- */
 .table-scroll { overflow-x: auto; -webkit-overflow-scrolling: touch; border-radius: var(--radius-sm); }
 .sheet-table {
   width: 100%; border-collapse: collapse; font-size: 0.86rem;
@@ -379,7 +410,7 @@ h4 { font-size: 1rem; margin: 12px 0 6px; }
   75% { transform: translateX(-4px); }
 }
 
-/* ---------- 10) DAFTAR PERIKSA ---------- */
+/* ---------- 12) DAFTAR PERIKSA ---------- */
 .checklist { list-style: none; padding: 0; margin: 0; }
 .checklist li {
   display: flex; gap: 10px; align-items: flex-start;
@@ -398,7 +429,7 @@ h4 { font-size: 1rem; margin: 12px 0 6px; }
 .checklist code { font-family: var(--font-mono); font-size: 0.85em; background: rgba(0,0,0,0.07); padding: 1px 5px; border-radius: 4px; }
 [data-theme="dark"] .checklist code { background: rgba(255,255,255,0.1); }
 
-/* ---------- 11) KARTU MINI / DEMO ---------- */
+/* ---------- 13) KARTU MINI / DEMO ---------- */
 .mini-card {
   border: 2px solid var(--color-border);
   border-radius: var(--radius);
@@ -443,7 +474,7 @@ h4 { font-size: 1rem; margin: 12px 0 6px; }
 .frozen-badge { background: rgba(97,97,97,0.18); color: #757575; }
 [data-theme="dark"] .frozen-badge { color: #BDBDBD; }
 
-/* ---------- 12) QUIZ BOX ---------- */
+/* ---------- 14) QUIZ BOX ---------- */
 .quiz-box { display: flex; flex-direction: column; gap: 10px; margin-top: 10px; }
 .quiz-q {
   border: 1px solid var(--color-border);
@@ -486,7 +517,7 @@ h4 { font-size: 1rem; margin: 12px 0 6px; }
 .swatch-btn.correct { border-color: var(--color-success); background: rgba(27,94,32,0.15); }
 .swatch-btn.wrong { border-color: var(--color-danger); background: rgba(198,40,40,0.12); }
 
-/* ---------- 13) CHIPS & DRAG-DROP ---------- */
+/* ---------- 15) CHIPS & DRAG-DROP ---------- */
 .chips, .pool {
   display: flex; flex-wrap: wrap; gap: 8px;
   padding: 10px; border-radius: var(--radius-sm);
@@ -540,7 +571,7 @@ h4 { font-size: 1rem; margin: 12px 0 6px; }
 .slot .slot-label { font-size: 0.72rem; color: var(--color-muted); font-weight: 700; text-transform: uppercase; }
 .slot .drag-card { font-size: 0.78rem; padding: 6px 8px; }
 
-/* ---------- 14) SLIDE CARDS ---------- */
+/* ---------- 16) SLIDE CARDS ---------- */
 .slide-card {
   border: 2px solid var(--color-border);
   border-radius: var(--radius);
@@ -553,7 +584,7 @@ input[type="range"] {
   width: 100%; min-height: 44px; accent-color: var(--color-primary);
 }
 
-/* ---------- 15) SCALE PERASAAN ---------- */
+/* ---------- 17) SCALE PERASAAN ---------- */
 .feeling { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 10px; }
 @media (min-width: 641px) { .feeling { grid-template-columns: repeat(4, 1fr); } }
 .feel-btn {
@@ -568,7 +599,7 @@ input[type="range"] {
   color: #fff; border-color: var(--color-primary);
 }
 
-/* ---------- 16) HASIL AKHIR ---------- */
+/* ---------- 18) HASIL AKHIR ---------- */
 .result-card { border-top: 6px solid var(--color-accent); }
 .result-name { font-size: 1.05rem; font-weight: 700; color: var(--color-secondary); margin: 4px 0 12px; }
 .result-score-wrap { display: flex; align-items: center; gap: 20px; flex-wrap: wrap; margin-bottom: 16px; }
@@ -608,7 +639,7 @@ input[type="range"] {
   margin: 10px 0; background: #fff;
 }
 
-/* ---------- 17) ACCORDION ---------- */
+/* ---------- 19) ACCORDION ---------- */
 .accordion {
   margin-top: 14px; border: 1px solid var(--color-border);
   border-radius: var(--radius-sm); padding: 0;
@@ -624,9 +655,7 @@ input[type="range"] {
 .accordion[open] summary::before { transform: rotate(90deg); }
 .accordion > *:not(summary) { padding: 0 14px 14px; }
 
-/* ---------- 18) MODAL ---------- */
-/* Aturan global: [hidden] selalu menyembunyikan, apa pun display-nya */
-[hidden] { display: none !important; }
+/* ---------- 20) MODAL ---------- */
 .modal-overlay {
   position: fixed; inset: 0; z-index: 200;
   background: rgba(0,0,0,0.65);
@@ -674,7 +703,7 @@ input[type="range"] {
   50% { transform: scale(1.08); }
 }
 
-/* ---------- 19) GLOSARIUM ---------- */
+/* ---------- 21) GLOSARIUM ---------- */
 .glossary-table { width: 100%; border-collapse: collapse; font-size: 0.85rem; min-width: 520px; }
 .glossary-table th, .glossary-table td {
   border: 1px solid var(--color-border); padding: 8px 10px; text-align: left;
@@ -683,7 +712,7 @@ input[type="range"] {
 .glossary-table code { font-family: var(--font-mono); font-size: 0.82em; background: rgba(0,0,0,0.07); padding: 1px 5px; border-radius: 4px; }
 [data-theme="dark"] .glossary-table code { background: rgba(255,255,255,0.1); }
 
-/* ---------- 20) TOAST ---------- */
+/* ---------- 22) TOAST ---------- */
 .toast-container {
   position: fixed; right: 14px; bottom: calc(var(--footer-h) + 14px);
   z-index: 300; display: flex; flex-direction: column; gap: 8px;
@@ -709,7 +738,7 @@ input[type="range"] {
   to { opacity: 0; transform: translateX(40px); }
 }
 
-/* ---------- 21) CONFETTI ---------- */
+/* ---------- 23) CONFETTI ---------- */
 .confetti-layer {
   position: fixed; inset: 0; pointer-events: none; z-index: 250; overflow: hidden;
 }
@@ -722,7 +751,7 @@ input[type="range"] {
   to { transform: translateY(110vh) rotate(720deg); opacity: 0.8; }
 }
 
-/* ---------- 22) FOOTER ---------- */
+/* ---------- 24) FOOTER ---------- */
 .app-footer {
   position: fixed; bottom: 0; left: 0; right: 0; z-index: 90;
   height: var(--footer-h);
@@ -736,34 +765,36 @@ input[type="range"] {
   text-align: center; font-weight: 600; letter-spacing: 0.01em;
 }
 
-/* ---------- 23) MODE FOKUS ---------- */
-body.focus-mode .app-header,
-body.focus-mode .progress-wrap,
+/* ---------- 25) MODE FOKUS ---------- */
+body.focus-mode .app-topbar,
 body.focus-mode .app-footer,
 body.focus-mode .no-print { display: none !important; }
 body.focus-mode { padding-top: 8px; padding-bottom: 8px; }
 body.focus-mode .app-main { padding-top: 16px; }
 
-/* ---------- 24) RESPONSIF ---------- */
+/* ---------- 26) RESPONSIF ---------- */
 @media (max-width: 900px) {
-  .header-inner { flex-wrap: nowrap; overflow-x: auto; padding: 0 8px; gap: 8px; }
+  .brand { flex-basis: 180px; }
   .brand-sub { display: none; }
-  .hud { flex-shrink: 0; }
-  .header-tools { flex-shrink: 0; }
+  .header-inner { gap: 6px; padding: 6px 10px; }
+  .header-tools { gap: 4px; }
+  .ghost-btn { padding: 6px 8px; font-size: 0.82rem; }
+  .hud { margin-left: 0; }
 }
 @media (max-width: 640px) {
-  .brand-title { font-size: 0.86rem; max-width: 130px; }
+  .brand-title { font-size: 0.86rem; max-width: 150px; }
   .logo { width: 36px; height: 36px; }
+  .header-tools .ghost-btn span { display: none; }
+  .header-tools .ghost-btn { padding: 6px 8px; font-size: 1.05rem; }
   .btn-row { flex-direction: column; }
   .btn-row .btn { width: 100%; }
-  .ghost-btn span { display: none; }
-  .ghost-btn { padding: 6px 8px; font-size: 1.05rem; }
   .card { padding: 14px; }
   h2 { font-size: 1.25rem; }
   .progress-dots li { font-size: 0.6rem; }
+  .score-box { font-size: 0.78rem; padding: 5px 10px; }
 }
 
-/* ---------- 25) PREFERS-REDUCED-MOTION ---------- */
+/* ---------- 27) PREFERS-REDUCED-MOTION ---------- */
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {
     animation-duration: 0.001ms !important;
@@ -773,11 +804,11 @@ body.focus-mode .app-main { padding-top: 16px; }
   }
 }
 
-/* ---------- 26) PRINT ---------- */
+/* ---------- 28) PRINT ---------- */
 @media print {
   :root { --color-bg: #fff; --color-card: #fff; --color-text: #000; }
   body { background: #fff !important; color: #000 !important; padding: 0; }
-  .app-header, .progress-wrap, .app-footer, .no-print,
+  .app-topbar, .app-footer, .no-print,
   .modal-overlay, .toast-container, .confetti-layer, .btn-row { display: none !important; }
   .app-main { padding: 0; max-width: none; }
   .card {
