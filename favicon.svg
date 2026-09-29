@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- ============================================================
+     favicon.svg — Ikon LKPD "Misi Bank Sampah Digital"
+     EN: Simple SVG icon: green background, white "D", yellow accent.
+     ID: Ikon SVG sederhana: latar hijau, huruf "D" putih, aksen kuning.
+     ============================================================ -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64" role="img" aria-label="Ikon LKPD Misi Bank Sampah Digital">
+  <!-- Latar hijau dengan sudut membulat -->
+  <rect x="0" y="0" width="64" height="64" rx="12" ry="12" fill="#2E7D32"/>
+
+  <!-- Aksen kuning daur ulang di sudut kanan bawah -->
+  <circle cx="52" cy="52" r="8" fill="#F9A825"/>
+  <path d="M48 52 l3 -4 l2 3 l3 -2" stroke="#2E7D32" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+
+  <!-- Huruf "D" putih -->
+  <path d="M16 14 h14 a18 18 0 0 1 0 36 h-14 z
+           M24 22 v20 h6 a10 10 0 0 0 0 -20 z"
+        fill="#FFFFFF" fill-rule="evenodd"/>
+
+  <!-- Garis data kecil (simbol Sheets) -->
+  <rect x="16" y="46" width="4" height="4" fill="#1565C0"/>
+  <rect x="22" y="44" width="4" height="6" fill="#1565C0"/>
+  <rect x="28" y="42" width="4" height="8" fill="#1565C0"/>
+</svg>
