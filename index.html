@@ -24,57 +24,62 @@
 <!-- EN: Skip link for keyboard users | ID: Tautan lompat untuk pengguna keyboard -->
 <a class="skip-link" href="#main">Lewati ke konten (Skip to content)</a>
 
-<!-- ============================ HEADER ============================ -->
-<header class="app-header" id="appHeader">
-  <div class="header-inner">
+<!-- ============================ TOPBAR (STICKY) ============================ -->
+<div class="app-topbar" id="appTopbar">
 
-    <div class="brand">
-      <!-- EN: School logo, falls back to favicon.svg if logo.png is missing -->
-      <!-- ID: Logo sekolah, otomatis memakai favicon.svg bila logo.png belum diunggah -->
-      <img src="logo.png" alt="Logo SMP Negeri 19 Kota Bekasi" class="logo"
-           onerror="this.onerror=null;this.src='favicon.svg';">
-      <div class="brand-text">
-        <h1 class="brand-title" data-i18n="appTitle">Digital Waste Bank Mission (Misi Bank Sampah Digital)</h1>
-        <p class="brand-sub" data-i18n="appSubtitle">LKPD Interaktif — Docs, Sheets, Slides Terintegrasi</p>
+  <!-- ============================ HEADER ============================ -->
+  <header class="app-header" id="appHeader">
+    <div class="header-inner">
+
+      <div class="brand">
+        <!-- EN: School logo, falls back to favicon.svg if logo.png is missing -->
+        <!-- ID: Logo sekolah, otomatis memakai favicon.svg bila logo.png belum diunggah -->
+        <img src="logo.png" alt="Logo SMP Negeri 19 Kota Bekasi" class="logo"
+             onerror="this.onerror=null;this.src='favicon.svg';">
+        <div class="brand-text">
+          <h1 class="brand-title" data-i18n="appTitle">Digital Waste Bank Mission (Misi Bank Sampah Digital)</h1>
+          <p class="brand-sub" data-i18n="appSubtitle">LKPD Interaktif — Docs, Sheets, Slides Terintegrasi</p>
+        </div>
       </div>
-    </div>
 
-    <div class="header-tools no-print">
-      <label class="sr-only" for="langSelect">Bahasa (Language)</label>
-      <select id="langSelect" class="tool-select" aria-label="Bahasa (Language)">
-        <option value="bi">🌐 Bilingual</option>
-        <option value="id">🇮🇩 Indonesia</option>
-        <option value="en">🇬🇧 English</option>
-      </select>
+      <div class="header-tools no-print">
+        <label class="sr-only" for="langSelect">Bahasa (Language)</label>
+        <select id="langSelect" class="tool-select" aria-label="Bahasa (Language)">
+          <option value="bi">🌐 Bilingual</option>
+          <option value="id">🇮🇩 Indonesia</option>
+          <option value="en">🇬🇧 English</option>
+        </select>
 
-      <button id="btnTheme" class="icon-btn" type="button" aria-label="Ganti tema gelap atau terang (Toggle dark or light theme)" title="Dark / Light">🌙</button>
-      <button id="btnSound" class="icon-btn" type="button" aria-label="Nyalakan atau matikan suara (Toggle sound)" title="Sound on / off">🔊</button>
-      <button id="btnFocus" class="icon-btn" type="button" aria-label="Mode fokus presentasi (Focus mode)" title="Focus mode">🎯</button>
-      <button id="btnPalette" class="icon-btn" type="button" aria-label="Ganti palet warna (Change color palette)" title="Palette">🎨</button>
-      <button id="btnGlossary" class="ghost-btn" type="button">📖 <span data-i18n="btnGlossary">Kamus Misi (Mission Dictionary)</span></button>
-      <button id="btnRules" class="ghost-btn" type="button">🏅 <span data-i18n="btnRules">Aturan Emas (Golden Rules)</span></button>
-      <button id="btnReset" class="ghost-btn danger" type="button">♻️ <span data-i18n="btnReset">Reset Misi (Reset Mission)</span></button>
-    </div>
-
-    <div class="hud">
-      <div class="score-box" title="Skor total (Total score)">
-        <span data-i18n="score">Skor (Score)</span>:
-        <strong id="scoreValue">0</strong><span class="score-max">/150</span>
+        <button id="btnTheme" class="icon-btn" type="button" aria-label="Ganti tema gelap atau terang (Toggle dark or light theme)" title="Dark / Light">🌙</button>
+        <button id="btnSound" class="icon-btn" type="button" aria-label="Nyalakan atau matikan suara (Toggle sound)" title="Sound on / off">🔊</button>
+        <button id="btnFocus" class="icon-btn" type="button" aria-label="Mode fokus presentasi (Focus mode)" title="Focus mode">🎯</button>
+        <button id="btnPalette" class="icon-btn" type="button" aria-label="Ganti palet warna (Change color palette)" title="Palette">🎨</button>
+        <button id="btnGlossary" class="ghost-btn" type="button">📖 <span data-i18n="btnGlossary">Kamus Misi (Mission Dictionary)</span></button>
+        <button id="btnRules" class="ghost-btn" type="button">🏅 <span data-i18n="btnRules">Aturan Emas (Golden Rules)</span></button>
+        <button id="btnReset" class="ghost-btn danger" type="button">♻️ <span data-i18n="btnReset">Reset Misi (Reset Mission)</span></button>
       </div>
-      <ul class="badge-strip" id="badgeStrip" aria-live="polite" aria-label="Badge yang diperoleh (Earned badges)"></ul>
+
+      <div class="hud">
+        <div class="score-box" title="Skor total (Total score)">
+          <span data-i18n="score">Skor (Score)</span>:
+          <strong id="scoreValue">0</strong><span class="score-max">/150</span>
+        </div>
+        <ul class="badge-strip" id="badgeStrip" aria-live="polite" aria-label="Badge yang diperoleh (Earned badges)"></ul>
+      </div>
+
     </div>
+  </header>
 
+  <!-- ============================ PROGRESS BAR ============================ -->
+  <div class="progress-wrap no-print" id="progressWrap">
+    <div class="progress-track" role="presentation">
+      <div class="progress-fill" id="progressFill"></div>
+    </div>
+    <ol class="progress-dots" id="progressDots"></ol>
+    <p class="progress-label" id="progressLabel">Layar 1 dari 7 (Screen 1 of 7)</p>
   </div>
-</header>
 
-<!-- ============================ PROGRESS BAR ============================ -->
-<div class="progress-wrap no-print" id="progressWrap">
-  <div class="progress-track" role="presentation">
-    <div class="progress-fill" id="progressFill"></div>
-  </div>
-  <ol class="progress-dots" id="progressDots"></ol>
-  <p class="progress-label" id="progressLabel">Layar 1 dari 7 (Screen 1 of 7)</p>
-</div>
+</div><!-- /.app-topbar -->
 
 <!-- ============================ MAIN ============================ -->
 <main id="main" class="app-main">
@@ -309,11 +314,11 @@
 
       <h3 class="mt-lg">☑️ Daftar Periksa Kegiatan 1 (Activity 1 Checklist)</h3>
       <ul class="checklist" id="k1Checklist">
-        <li data-check="sum"><span class="box">☐</span> Rumus <code>=SUM(B2:E2)</code> dipakai untuk total tiap jenis sampah <em>(SUM used for each waste type total)</em></li>
-        <li data-check="times"><span class="box">☐</span> Rumus <code>=F2*G2</code> dipakai untuk menghitung nilai rupiah <em>(multiplication used for rupiah value)</em></li>
-        <li data-check="week"><span class="box">☐</span> Rumus <code>=SUM(B2:B5)</code> dipakai untuk total per minggu <em>(SUM used for weekly total)</em></li>
-        <li data-check="avg"><span class="box">☐</span> Rumus <code>=AVERAGE(B6:E6)</code> dipakai untuk rata-rata <em>(AVERAGE used)</em></li>
-        <li data-check="max"><span class="box">☐</span> Rumus <code>=MAX(F2:F5)</code> dipakai untuk nilai terbesar <em>(MAX used)</em></li>
+        <li data-check="F2"><span class="box">☐</span> Rumus <code>=SUM(B2:E2)</code> dipakai untuk total tiap jenis sampah <em>(SUM used for each waste type total)</em></li>
+        <li data-check="H2"><span class="box">☐</span> Rumus <code>=F2*G2</code> dipakai untuk menghitung nilai rupiah <em>(multiplication used for rupiah value)</em></li>
+        <li data-check="B6"><span class="box">☐</span> Rumus <code>=SUM(B2:B5)</code> dipakai untuk total per minggu <em>(SUM used for weekly total)</em></li>
+        <li data-check="B8"><span class="box">☐</span> Rumus <code>=AVERAGE(B6:E6)</code> dipakai untuk rata-rata <em>(AVERAGE used)</em></li>
+        <li data-check="B9"><span class="box">☐</span> Rumus <code>=MAX(F2:F5)</code> dipakai untuk nilai terbesar <em>(MAX used)</em></li>
       </ul>
 
       <div class="btn-row">
