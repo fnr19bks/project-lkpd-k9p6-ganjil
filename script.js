@@ -43,7 +43,7 @@
      ========================================================= */
   const state = {
     name: '',
-    kelas: '9A',
+    kelas: '91',
     role: 'pilot',
     score: 0,
     badges: [],
@@ -1394,7 +1394,7 @@
 
   function continueGame() {
     $('#playerName').value = state.name || '';
-    $('#playerClass').value = state.kelas || '9A';
+    $('#playerClass').value = state.kelas || '91';
     goTo(state.screen || 2);
     renderBadgeStrip();
     animateScore(state.score);
@@ -1535,7 +1535,7 @@
     if (loaded && state.screen > 1) {
       $('#btnContinue').hidden = false;
       $('#playerName').value = state.name || '';
-      $('#playerClass').value = state.kelas || '9A';
+      $('#playerClass').value = state.kelas || '91';
     }
 
     // Jika akses guru, jangan aktifkan layar game
