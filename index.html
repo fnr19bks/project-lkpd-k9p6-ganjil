@@ -3,32 +3,38 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Misi Bank Sampah Digital — LKPD Informatika Kelas 9 (Digital Waste Bank Mission)</title>
-  <meta name="description" content="LKPD interaktif Berpikir Komputasional: Docs, Sheets, dan Slides terintegrasi. Studi kasus Bank Sampah SMP Negeri 19 Kota Bekasi. (Interactive worksheet on integrated Docs, Sheets, and Slides.)">
-  <meta name="author" content="SMP Negeri 19 Kota Bekasi">
-  <meta property="og:title" content="Misi Bank Sampah Digital — LKPD Informatika Kelas 9">
-  <meta property="og:description" content="Game LKPD interaktif: Docs, Sheets, dan Slides terintegrasi. Belajar sambil bermain! (Interactive learning game.)">
-  <meta property="og:type" content="website">
+  <title>Misi Bank Sampah Digital — LKPD Informatika Kelas 9</title>
+  <meta name="description" content="LKPD interaktif Berpikir Komputasional: Docs, Sheets, dan Slides terintegrasi.">
   <meta name="theme-color" content="#2E7D32">
   <link rel="icon" type="image/svg+xml" href="favicon.svg">
-  <link rel="apple-touch-icon" href="favicon.svg">
   <link rel="stylesheet" href="style.css">
+  <style id="fixes-fallback">
+    /* Fallback minimal jika style.css belum punya kelas ini */
+    .modal-overlay[hidden] { display: none !important; }
+    .modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.5); display: flex; align-items: center; justify-content: center; z-index: 9999; padding: 16px; }
+    .modal { background: #fff; color: #1a1a1a; border-radius: 12px; padding: 24px; max-width: 520px; width: 100%; max-height: 85vh; overflow: auto; box-shadow: 0 10px 40px rgba(0,0,0,0.25); }
+    .modal-large { max-width: 720px; }
+    .badge-icon-large { font-size: 64px; text-align: center; line-height: 1; margin-bottom: 8px; }
+    .toast-container { position: fixed; top: 96px; right: 16px; display: flex; flex-direction: column; gap: 8px; z-index: 10000; pointer-events: none; }
+    .toast { background: #2E7D32; color: #fff; padding: 10px 16px; border-radius: 8px; font-size: 14px; box-shadow: 0 4px 12px rgba(0,0,0,0.15); opacity: 1; transition: opacity 0.3s; pointer-events: auto; max-width: 360px; }
+    .toast.warn { background: #F9A825; color: #1a1a1a; }
+    .toast.err { background: #C62828; }
+    .toast.hide { opacity: 0; }
+    [data-theme="dark"] .modal { background: #1e1e1e; color: #f0f0f0; }
+    .glossary-table, .rubric-table { width: 100%; border-collapse: collapse; }
+    .glossary-table th, .glossary-table td, .rubric-table th, .rubric-table td { padding: 6px 8px; border-bottom: 1px solid #e0e0e0; text-align: left; font-size: 14px; }
+    #glossarySearch { width: 100%; padding: 8px 12px; margin-bottom: 12px; border: 1px solid #ccc; border-radius: 8px; font-size: 14px; }
+    .rules-list li { margin: 6px 0; line-height: 1.5; }
+  </style>
 </head>
 <body data-palette="green">
 
-<!-- EN: Skip link for keyboard users | ID: Tautan lompat untuk pengguna keyboard -->
 <a class="skip-link" href="#main">Lewati ke konten (Skip to content)</a>
 
-<!-- ============================ TOPBAR (STICKY) ============================ -->
 <div class="app-topbar" id="appTopbar">
-
-  <!-- ============================ HEADER ============================ -->
   <header class="app-header" id="appHeader">
     <div class="header-inner">
-
       <div class="brand">
-        <!-- EN: School logo, falls back to favicon.svg if logo.png is missing -->
-        <!-- ID: Logo sekolah, otomatis memakai favicon.svg bila logo.png belum diunggah -->
         <img src="favicon.svg" alt="Logo SMP Negeri 19 Kota Bekasi" class="logo" onerror="this.onerror=null;this.src='favicon.svg';">
         <div class="brand-text">
           <h1 class="brand-title" data-i18n="appTitle">Digital Waste Bank Mission (Misi Bank Sampah Digital)</h1>
@@ -43,11 +49,10 @@
           <option value="id">🇮🇩 Indonesia</option>
           <option value="en">🇬🇧 English</option>
         </select>
-
-        <button id="btnTheme" class="icon-btn" type="button" aria-label="Ganti tema gelap atau terang (Toggle dark or light theme)" title="Dark / Light">🌙</button>
-        <button id="btnSound" class="icon-btn" type="button" aria-label="Nyalakan atau matikan suara (Toggle sound)" title="Sound on / off">🔊</button>
-        <button id="btnFocus" class="icon-btn" type="button" aria-label="Mode fokus presentasi (Focus mode)" title="Focus mode">🎯</button>
-        <button id="btnPalette" class="icon-btn" type="button" aria-label="Ganti palet warna (Change color palette)" title="Palette">🎨</button>
+        <button id="btnTheme" class="icon-btn" type="button" aria-label="Ganti tema gelap atau terang" title="Dark / Light">🌙</button>
+        <button id="btnSound" class="icon-btn" type="button" aria-label="Nyalakan atau matikan suara" title="Sound on / off">🔊</button>
+        <button id="btnFocus" class="icon-btn" type="button" aria-label="Mode fokus presentasi" title="Focus mode">🎯</button>
+        <button id="btnPalette" class="icon-btn" type="button" aria-label="Ganti palet warna" title="Palette">🎨</button>
         <button id="btnGlossary" class="ghost-btn" type="button">📖 <span data-i18n="btnGlossary">Kamus Misi (Mission Dictionary)</span></button>
         <button id="btnRules" class="ghost-btn" type="button">🏅 <span data-i18n="btnRules">Aturan Emas (Golden Rules)</span></button>
         <button id="btnReset" class="ghost-btn danger" type="button">♻️ <span data-i18n="btnReset">Reset Misi (Reset Mission)</span></button>
@@ -58,13 +63,11 @@
           <span data-i18n="score">Skor (Score)</span>:
           <strong id="scoreValue">0</strong><span class="score-max">/150</span>
         </div>
-        <ul class="badge-strip" id="badgeStrip" aria-live="polite" aria-label="Badge yang diperoleh (Earned badges)"></ul>
+        <ul class="badge-strip" id="badgeStrip" aria-live="polite" aria-label="Badge yang diperoleh"></ul>
       </div>
-
     </div>
   </header>
 
-  <!-- ============================ PROGRESS BAR ============================ -->
   <div class="progress-wrap no-print" id="progressWrap">
     <div class="progress-track" role="presentation">
       <div class="progress-fill" id="progressFill" style="width: 14.2857%;"></div>
@@ -72,13 +75,11 @@
     <ol class="progress-dots" id="progressDots"><li class="active">L1</li><li>L2</li><li>L3</li><li>L4</li><li>L5</li><li>L6</li><li>L7</li></ol>
     <p class="progress-label" id="progressLabel">Layar 1 dari 7 — Papan Misi (Mission Board)</p>
   </div>
+</div>
 
-</div><!-- /.app-topbar -->
-
-<!-- ============================ MAIN ============================ -->
 <main id="main" class="app-main">
 
-  <!-- ==================== LAYAR 1 — START SCREEN ==================== -->
+  <!-- ==================== LAYAR 1 ==================== -->
   <section id="screen-1" class="screen is-active" aria-labelledby="h-start">
     <div class="card hero">
       <span class="chip">🏁 Papan Misi (Mission Board)</span>
@@ -109,102 +110,95 @@
       <fieldset class="field fieldset">
         <legend data-i18n="labelRole">Peran Awal (Starting Role)</legend>
         <label class="radio-line">
-          <input type="radio" name="role" value="pilot" checked="">
-          <span>🧑‍✈️ Pilot — memegang keyboard (holds the keyboard)</span>
+          <input type="radio" name="role" value="pilot" checked>
+          <span>🧑‍✈️ Pilot — memegang keyboard</span>
         </label>
         <label class="radio-line">
           <input type="radio" name="role" value="navigator">
-          <span>🧭 Navigator — membaca langkah (reads the steps)</span>
+          <span>🧭 Navigator — membaca langkah</span>
         </label>
       </fieldset>
 
-      <p class="error-text" id="startError" role="alert" hidden=""></p>
+      <p class="error-text" id="startError" role="alert" hidden></p>
 
       <div class="btn-row">
         <button id="btnStart" class="btn primary" type="button">🚀 <span data-i18n="btnStart">Start Mission (Mulai Misi)</span></button>
-        <button id="btnContinue" class="btn secondary" type="button" hidden="">▶️ <span data-i18n="btnContinue">Continue Mission (Lanjutkan Misi)</span></button>
+        <button id="btnContinue" class="btn secondary" type="button" hidden>▶️ <span data-i18n="btnContinue">Continue Mission (Lanjutkan Misi)</span></button>
       </div>
 
       <h3 class="mt-lg" data-i18n="badgesTitle">Badge yang Bisa Didapat (Badges to Collect)</h3>
-      <ul class="badge-preview" id="badgePreview"><li class="locked"><span class="badge-icon">🏆</span><span><strong>Data Master</strong><br><span class="small">Semua rumus di Sheets benar (All Sheets formulas correct).</span></span></li><li class="locked"><span class="badge-icon">📊</span><span><strong>Chart Champion</strong><br><span class="small">Memilih jenis grafik dengan tepat (Chose the right chart type).</span></span></li><li class="locked"><span class="badge-icon">🔗</span><span><strong>Link Legend</strong><br><span class="small">Memilih grafik tertaut, bukan screenshot (Chose the linked chart, not the screenshot).</span></span></li><li class="locked"><span class="badge-icon">🧠</span><span><strong>Critical Thinker</strong><br><span class="small">Menjawab Uji Ubah Data dengan alasan berbukti (Answered the Update Test with evidence).</span></span></li><li class="locked"><span class="badge-icon">🤝</span><span><strong>Team Player</strong><br><span class="small">Memberi pujian dan saran sejawat (Gave peer praise and suggestion).</span></span></li></ul>
+      <ul class="badge-preview" id="badgePreview"></ul>
 
       <details class="accordion">
         <summary>❓ Pertanyaan Pemantik (Warm-up Questions)</summary>
         <ol class="pemantik-list">
-          <li>Pernahkah kamu membuat tugas kelompok lalu ada banyak versi berkas dengan angka yang berbeda-beda? Bagaimana rasanya? <em>(Have you ever made a group assignment with many file versions and different numbers? How did it feel?)</em></li>
-          <li>Setiap hari sampah dari Bekasi dan sekitarnya dibawa ke TPST Bantargebang. Bagaimana cara sekolah kita membuktikan bahwa kita sudah mengurangi sampah? Data apa yang dibutuhkan? <em>(How can our school prove that we have reduced waste? What data is needed?)</em></li>
-          <li>Jika satu angka di tabel berubah, apa yang terjadi pada grafik, laporan, dan slide yang sudah dibuat? Apakah semuanya ikut berubah? <em>(If one number in the table changes, what happens to the chart, report, and slides?)</em></li>
-          <li>Mengapa laporan yang bagus tidak cukup hanya berisi angka, tetapi juga grafik dan penjelasan? <em>(Why does a good report need charts and explanations, not just numbers?)</em></li>
+          <li>Pernahkah kamu membuat tugas kelompok lalu ada banyak versi berkas dengan angka yang berbeda-beda? Bagaimana rasanya?</li>
+          <li>Setiap hari sampah dari Bekasi dibawa ke TPST Bantargebang. Bagaimana cara sekolah membuktikan pengurangan sampah?</li>
+          <li>Jika satu angka di tabel berubah, apa yang terjadi pada grafik, laporan, dan slide?</li>
+          <li>Mengapa laporan bagus perlu grafik dan penjelasan, bukan hanya angka?</li>
         </ol>
       </details>
 
       <details class="accordion">
-        <summary>🧪 Kuis Diagnostik &amp; Kuis Sumatif (Practice Quizzes — tidak dinilai rapor / not graded)</summary>
-        <h4>Kuis Diagnostik (Diagnostic Quiz)</h4>
-        <div id="diagnosticBox" class="quiz-box"><div class="quiz-q"><p>1. Aplikasi yang paling cocok untuk menulis laporan adalah ....</p><button type="button" class="quiz-opt">a. Sheets</button><button type="button" class="quiz-opt">b. Docs</button><button type="button" class="quiz-opt">c. Slides</button></div><div class="quiz-q"><p>2. Aplikasi yang paling cocok untuk menghitung total dan membuat grafik dari angka adalah ....</p><button type="button" class="quiz-opt">a. Docs</button><button type="button" class="quiz-opt">b. Sheets</button><button type="button" class="quiz-opt">c. Slides</button></div><div class="quiz-q"><p>3. Aplikasi yang paling cocok untuk menyampaikan ringkasan di depan kelas adalah ....</p><button type="button" class="quiz-opt">a. Slides</button><button type="button" class="quiz-opt">b. Docs</button><button type="button" class="quiz-opt">c. Sheets</button></div><div class="quiz-q"><p>4. Benar atau Salah: Jika angka di tabel diubah, grafik yang ditempel sebagai gambar di laporan ikut berubah otomatis.</p><button type="button" class="quiz-opt">a. Benar (True)</button><button type="button" class="quiz-opt">b. Salah (False)</button></div></div>
-        <h4 class="mt-lg">Kuis Sumatif (Summative Quiz)</h4>
-        <div id="summativeBox" class="quiz-box"><div class="quiz-q"><p>1. Rumus untuk menjumlahkan sel B2 sampai E2 adalah ....</p><button type="button" class="quiz-opt">a. =B2+E2</button><button type="button" class="quiz-opt">b. =SUM(B2:E2)</button><button type="button" class="quiz-opt">c. =TOTAL(B2,E2)</button><button type="button" class="quiz-opt">d. B2:E2=SUM</button></div><div class="quiz-q"><p>2. Cara terbaik memasukkan grafik ke Docs agar dapat diperbarui adalah ....</p><button type="button" class="quiz-opt">a. Screenshot</button><button type="button" class="quiz-opt">b. Menggambar ulang</button><button type="button" class="quiz-opt">c. Insert → Chart → From Sheets + centang "Link to spreadsheet"</button><button type="button" class="quiz-opt">d. Mengetik angkanya lagi</button></div><div class="quiz-q"><p>3. Setelah data di Sheets diubah dan grafik di Docs diperbarui, yang masih harus diperiksa manual adalah ....</p><button type="button" class="quiz-opt">a. Warna grafik</button><button type="button" class="quiz-opt">b. Kalimat analisis yang berisi angka</button><button type="button" class="quiz-opt">c. Ukuran kertas</button><button type="button" class="quiz-opt">d. Nama pengguna</button></div><div class="quiz-q"><p>4. Total sampah 200 kg dan plastik 50 kg. Persentase plastik adalah ....</p><button type="button" class="quiz-opt">a. 15%</button><button type="button" class="quiz-opt">b. 20%</button><button type="button" class="quiz-opt">c. 25%</button><button type="button" class="quiz-opt">d. 50%</button></div><div class="quiz-q"><p>5. Sikap berikut yang tidak sesuai etika saat membuat laporan data adalah ....</p><button type="button" class="quiz-opt">a. Mencantumkan sumber data</button><button type="button" class="quiz-opt">b. Mengubah angka agar terlihat bagus</button><button type="button" class="quiz-opt">c. Meminta izin memakai data orang lain</button><button type="button" class="quiz-opt">d. Memeriksa ulang angka</button></div></div>
+        <summary>🧪 Kuis Diagnostik &amp; Kuis Sumatif (Practice — tidak dinilai)</summary>
+        <h4>Kuis Diagnostik</h4>
+        <div id="diagnosticBox" class="quiz-box"></div>
+        <h4 class="mt-lg">Kuis Sumatif</h4>
+        <div id="summativeBox" class="quiz-box"></div>
       </details>
     </div>
   </section>
 
-  <!-- ==================== LAYAR 2 — KEGIATAN 0 ==================== -->
+  <!-- ==================== LAYAR 2 ==================== -->
   <section id="screen-2" class="screen" aria-labelledby="h-k0">
     <div class="card">
       <span class="chip">🔍 Kegiatan 0 (Activity 0)</span>
       <h2 id="h-k0">Observe &amp; Predict (Mengamati &amp; Menduga)</h2>
-      <p class="lead">
-        Bandingkan dua cara mengerjakan laporan bank sampah, lalu tekan tombol perubahan data.
-        <em>(Compare two ways of making the waste-bank report, then press the data-change button.)</em>
-      </p>
+      <p class="lead">Bandingkan dua cara mengerjakan laporan bank sampah, lalu tekan tombol perubahan data.</p>
 
       <div class="grid grid-2">
-        <!-- Cara Rara -->
         <article class="mini-card good" id="cardRara">
           <h3>🔗 Cara Rara — Terintegrasi (Integrated)</h3>
-          <p class="small">Data diketik <strong>satu kali</strong> di Sheets. Grafik disisipkan <strong>tertaut</strong> ke Docs dan Slides. <em>(Data typed once in Sheets. Charts linked into Docs and Slides.)</em></p>
+          <p class="small">Data diketik <strong>satu kali</strong> di Sheets. Grafik disisipkan <strong>tertaut</strong> ke Docs dan Slides.</p>
           <div class="chart-mini" id="raraChart" role="img" aria-label="Grafik batang sampah plastik per minggu cara Rara">
             <div class="bar" data-week="1" style="--h:40%"><span>12</span></div>
             <div class="bar" data-week="2" style="--h:50%"><span>15</span></div>
             <div class="bar" data-week="3" style="--h:60%"><span>18</span></div>
             <div class="bar" data-week="4" style="--h:70%"><span>21</span></div>
           </div>
-          <p class="chart-caption">Plastik per minggu (kg) <em>— Plastic per week</em> <span class="link-badge" id="raraStatus">🔗 Linked</span></p>
+          <p class="chart-caption">Plastik per minggu (kg) <span class="link-badge" id="raraStatus">🔗 Linked</span></p>
         </article>
 
-        <!-- Cara Bagus -->
         <article class="mini-card bad" id="cardBagus">
           <h3>📷 Cara Bagus — Terpisah (Separated)</h3>
-          <p class="small">Data diketik ulang di Docs dan di Slides. Grafik ditempel sebagai <strong>gambar hasil screenshot</strong>. <em>(Data retyped in Docs and Slides. Chart pasted as a screenshot image.)</em></p>
+          <p class="small">Data diketik ulang di Docs dan Slides. Grafik ditempel sebagai <strong>screenshot</strong>.</p>
           <div class="chart-mini frozen" id="bagusChart" role="img" aria-label="Grafik batang sampah plastik per minggu cara Bagus">
             <div class="bar" data-week="1" style="--h:40%"><span>12</span></div>
             <div class="bar" data-week="2" style="--h:50%"><span>15</span></div>
             <div class="bar" data-week="3" style="--h:60%"><span>18</span></div>
             <div class="bar" data-week="4" style="--h:70%"><span>21</span></div>
           </div>
-          <p class="chart-caption">Plastik per minggu (kg) <em>— Plastic per week</em> <span class="link-badge frozen-badge" id="bagusStatus">📷 Screenshot</span></p>
+          <p class="chart-caption">Plastik per minggu (kg) <span class="link-badge frozen-badge" id="bagusStatus">📷 Screenshot</span></p>
         </article>
       </div>
 
       <div class="btn-row">
-        <button id="btnChangeData" class="btn accent" type="button">
-          🔄 <span data-i18n="btnChangeData">Ubah data Plastik Minggu 4: 21 → 30 kg (Change Week-4 Plastic data)</span>
-        </button>
+        <button id="btnChangeData" class="btn accent" type="button">🔄 <span data-i18n="btnChangeData">Ubah data Plastik Minggu 4: 21 → 30 kg</span></button>
       </div>
-      <p class="note" id="changeNote" role="status" hidden=""></p>
+      <p class="note" id="changeNote" role="status" hidden></p>
     </div>
 
     <div class="card">
-      <h3>🧠 Mini-Quiz 1 — Cara mana yang lebih baik? (Which way is better?)</h3>
+      <h3>🧠 Mini-Quiz 1 — Cara mana yang lebih baik?</h3>
       <div id="k0Quiz1" class="quiz-box"></div>
     </div>
 
     <div class="card">
       <h3>🧩 Mini-Quiz 2 — Susun alasan (Arrange the reasons)</h3>
-      <p class="small">Seret <strong>3 alasan yang benar</strong> ke kotak. Ada 2 alasan pengecoh. Bisa juga: klik kartu lalu klik kotak. <em>(Drag 3 correct reasons into the box. There are 2 distractors. You can also click a card then click the box.)</em></p>
+      <p class="small">Seret <strong>3 alasan yang benar</strong> ke kotak. Ada 2 pengecoh. Bisa juga: klik kartu lalu klik kotak.</p>
       <div class="chips" id="k0Reasons"></div>
-      <div class="dropzone" id="k0Dropzone" data-drop="reasons" role="button" tabindex="0" aria-label="Kotak alasan (Reason box)">
-        <p class="dz-hint">⬇️ Letakkan 3 alasan di sini (Drop 3 reasons here)</p>
+      <div class="dropzone" id="k0Dropzone" data-drop="reasons" role="button" tabindex="0" aria-label="Kotak alasan">
+        <p class="dz-hint">⬇️ Letakkan 3 alasan di sini</p>
       </div>
       <div class="btn-row">
         <button id="btnCheckReasons" class="btn secondary" type="button">✅ <span data-i18n="btnCheck">Periksa (Check)</span></button>
@@ -214,27 +208,24 @@
 
     <div class="card">
       <h3>📝 Hipotesis Saya (My Hypothesis)</h3>
-      <p class="small">Tulis satu kalimat dugaanmu: apa yang terjadi pada grafik dan laporan bila data di Sheets diubah? <em>(Write one sentence: what happens to charts and reports when Sheets data changes?)</em></p>
+      <p class="small">Tulis satu kalimat dugaanmu: apa yang terjadi pada grafik dan laporan bila data di Sheets diubah?</p>
       <label class="field">
-        <span class="sr-only">Hipotesis (Hypothesis)</span>
+        <span class="sr-only">Hipotesis</span>
         <textarea id="k0Hypo" rows="3" maxlength="240" placeholder="Menurut saya, jika data di Sheets diubah maka ..."></textarea>
       </label>
       <div class="btn-row">
         <button id="btnSaveHypo" class="btn primary" type="button">💾 <span data-i18n="btnSaveNext">Simpan &amp; Lanjut (Save &amp; Next)</span></button>
       </div>
-      <p class="error-text" id="k0Error" role="alert" hidden=""></p>
+      <p class="error-text" id="k0Error" role="alert" hidden></p>
     </div>
   </section>
 
-  <!-- ==================== LAYAR 3 — KEGIATAN 1 ==================== -->
+  <!-- ==================== LAYAR 3 ==================== -->
   <section id="screen-3" class="screen" aria-labelledby="h-k1">
     <div class="card">
       <span class="chip">📊 Kegiatan 1 (Activity 1)</span>
-      <h2 id="h-k1">Sheets Lab — Data &amp; Formula (Lab Sheets — Data &amp; Rumus)</h2>
-      <p class="lead">
-        Isi sel yang kosong dengan rumus yang tepat. Rumus selalu diawali tanda <code>=</code>.
-        <em>(Fill the empty cells with the correct formula. Formulas always start with <code>=</code>.)</em>
-      </p>
+      <h2 id="h-k1">Sheets Lab — Data &amp; Formula</h2>
+      <p class="lead">Isi sel yang kosong dengan rumus yang tepat. Rumus selalu diawali tanda <code>=</code>.</p>
 
       <div class="table-scroll">
         <table class="sheet-table" id="sheetTable">
@@ -245,7 +236,7 @@
               <th scope="col">G</th><th scope="col">H</th>
             </tr>
             <tr>
-              <th scope="col">Jenis Sampah <em>(Type)</em></th>
+              <th scope="col">Jenis Sampah</th>
               <th scope="col">Minggu 1</th><th scope="col">Minggu 2</th>
               <th scope="col">Minggu 3</th><th scope="col">Minggu 4</th>
               <th scope="col">Total (kg)</th>
@@ -255,24 +246,24 @@
           </thead>
           <tbody>
             <tr>
-              <th scope="row">Plastik <em>(Plastic)</em></th>
+              <th scope="row">Plastik</th>
               <td>12</td><td>15</td><td>18</td><td>21</td>
               <td><input class="cell-input" id="cellF2" data-cell="F2" type="text" inputmode="text" autocomplete="off" spellcheck="false" aria-label="Sel F2 rumus total plastik"></td>
               <td>3.000</td>
               <td><input class="cell-input" id="cellH2" data-cell="H2" type="text" inputmode="text" autocomplete="off" spellcheck="false" aria-label="Sel H2 rumus nilai plastik"></td>
             </tr>
             <tr>
-              <th scope="row">Kertas <em>(Paper)</em></th>
+              <th scope="row">Kertas</th>
               <td>20</td><td>18</td><td>25</td><td>27</td>
               <td class="given">90</td><td>2.000</td><td class="given">180.000</td>
             </tr>
             <tr>
-              <th scope="row">Kaleng/Logam <em>(Cans/Metal)</em></th>
+              <th scope="row">Kaleng/Logam</th>
               <td>5</td><td>6</td><td>4</td><td>8</td>
               <td class="given">23</td><td>5.000</td><td class="given">115.000</td>
             </tr>
             <tr>
-              <th scope="row">Kaca <em>(Glass)</em></th>
+              <th scope="row">Kaca</th>
               <td>3</td><td>2</td><td>4</td><td>3</td>
               <td class="given">12</td><td>500</td><td class="given">6.000</td>
             </tr>
@@ -294,7 +285,7 @@
             <tr>
               <th scope="row">Nilai terbesar (MAX)</th>
               <td><input class="cell-input" id="cellB9" data-cell="B9" type="text" autocomplete="off" spellcheck="false" aria-label="Sel B9 rumus nilai terbesar"></td>
-              <td colspan="7" class="hint-cell">kg — total terbesar antar jenis sampah <em>(largest total among waste types)</em></td>
+              <td colspan="7" class="hint-cell">kg — total terbesar antar jenis sampah</td>
             </tr>
           </tfoot>
         </table>
@@ -303,16 +294,16 @@
       <p class="note" id="k1Feedback" role="status"></p>
 
       <h3 class="mt-lg">🎯 Mini-Game Grafik (Chart Mini-Game)</h3>
-      <p class="small" id="k1ChartPrompt">Selesaikan kelima rumus dulu untuk membuka mini-game grafik. <em>(Finish all five formulas to unlock the chart mini-game.)</em></p>
-      <div id="k1ChartGame" class="quiz-box" hidden=""></div>
+      <p class="small" id="k1ChartPrompt">Selesaikan kelima rumus dulu untuk membuka mini-game grafik.</p>
+      <div id="k1ChartGame" class="quiz-box" hidden></div>
 
-      <h3 class="mt-lg">☑️ Daftar Periksa Kegiatan 1 (Activity 1 Checklist)</h3>
+      <h3 class="mt-lg">☑️ Daftar Periksa Kegiatan 1</h3>
       <ul class="checklist" id="k1Checklist">
-        <li data-check="F2"><span class="box">☐</span> Rumus <code>=SUM(B2:E2)</code> dipakai untuk total tiap jenis sampah <em>(SUM used for each waste type total)</em></li>
-        <li data-check="H2"><span class="box">☐</span> Rumus <code>=F2*G2</code> dipakai untuk menghitung nilai rupiah <em>(multiplication used for rupiah value)</em></li>
-        <li data-check="B6"><span class="box">☐</span> Rumus <code>=SUM(B2:B5)</code> dipakai untuk total per minggu <em>(SUM used for weekly total)</em></li>
-        <li data-check="B8"><span class="box">☐</span> Rumus <code>=AVERAGE(B6:E6)</code> dipakai untuk rata-rata <em>(AVERAGE used)</em></li>
-        <li data-check="B9"><span class="box">☐</span> Rumus <code>=MAX(F2:F5)</code> dipakai untuk nilai terbesar <em>(MAX used)</em></li>
+        <li data-check="F2"><span class="box">☐</span> Rumus <code>=SUM(B2:E2)</code> untuk total tiap jenis</li>
+        <li data-check="H2"><span class="box">☐</span> Rumus <code>=F2*G2</code> untuk nilai rupiah</li>
+        <li data-check="B6"><span class="box">☐</span> Rumus <code>=SUM(B2:B5)</code> untuk total per minggu</li>
+        <li data-check="B8"><span class="box">☐</span> Rumus <code>=AVERAGE(B6:E6)</code> untuk rata-rata</li>
+        <li data-check="B9"><span class="box">☐</span> Rumus <code>=MAX(F2:F5)</code> untuk nilai terbesar</li>
       </ul>
 
       <div class="btn-row">
@@ -321,18 +312,15 @@
     </div>
   </section>
 
-  <!-- ==================== LAYAR 4 — KEGIATAN 2 ==================== -->
+  <!-- ==================== LAYAR 4 ==================== -->
   <section id="screen-4" class="screen" aria-labelledby="h-k2">
     <div class="card">
       <span class="chip">📄 Kegiatan 2 (Activity 2)</span>
-      <h2 id="h-k2">Docs Report Builder (Menyusun Laporan di Docs)</h2>
-      <p class="lead">
-        Susun laporan yang runtut, lalu masukkan grafik yang tepat.
-        <em>(Arrange a well-ordered report, then insert the right chart.)</em>
-      </p>
+      <h2 id="h-k2">Docs Report Builder</h2>
+      <p class="lead">Susun laporan yang runtut, lalu masukkan grafik yang tepat.</p>
 
-      <h3>1) Urutkan bagian laporan (Order the report sections)</h3>
-      <p class="small">Seret kartu ke kotak 1–4. Bisa juga klik kartu lalu klik kotak. <em>(Drag cards into boxes 1–4, or click a card then click a box.)</em></p>
+      <h3>1) Urutkan bagian laporan</h3>
+      <p class="small">Seret kartu ke kotak 1–4. Bisa juga: klik kartu lalu klik kotak.</p>
       <div class="pool" id="k2Pool">
         <div class="drag-card" draggable="true" tabindex="0" data-uid="k2-a" data-pool="k2Pool" data-order="3">✍️ Analisis (Analysis)</div>
         <div class="drag-card" draggable="true" tabindex="0" data-uid="k2-b" data-pool="k2Pool" data-order="1">📌 Latar Belakang (Background)</div>
@@ -340,30 +328,30 @@
         <div class="drag-card" draggable="true" tabindex="0" data-uid="k2-d" data-pool="k2Pool" data-order="2">📊 Data dan Grafik (Data and Chart)</div>
       </div>
       <div class="slots" id="k2Slots">
-        <div class="slot" data-slot="1"><span class="slot-label">Bagian 1 (Part 1)</span></div>
-        <div class="slot" data-slot="2"><span class="slot-label">Bagian 2 (Part 2)</span></div>
-        <div class="slot" data-slot="3"><span class="slot-label">Bagian 3 (Part 3)</span></div>
-        <div class="slot" data-slot="4"><span class="slot-label">Bagian 4 (Part 4)</span></div>
+        <div class="slot" data-slot="1"><span class="slot-label">Bagian 1</span></div>
+        <div class="slot" data-slot="2"><span class="slot-label">Bagian 2</span></div>
+        <div class="slot" data-slot="3"><span class="slot-label">Bagian 3</span></div>
+        <div class="slot" data-slot="4"><span class="slot-label">Bagian 4</span></div>
       </div>
 
-      <h3 class="mt-lg">2) Pilih cara memasukkan grafik (Choose how to insert the chart)</h3>
+      <h3 class="mt-lg">2) Pilih cara memasukkan grafik</h3>
       <div class="chips" id="k2ChartCards">
-        <div class="drag-card" draggable="true" tabindex="0" data-uid="k2-chart-1" data-pool="k2ChartCards" data-chart="screenshot">📷 Screenshot grafik ditempel sebagai gambar <em>(Paste a chart screenshot)</em></div>
-        <div class="drag-card" draggable="true" tabindex="0" data-uid="k2-chart-2" data-pool="k2ChartCards" data-chart="linked">🔗 Insert → Chart → From Sheets + centang “Link to spreadsheet”</div>
+        <div class="drag-card" draggable="true" tabindex="0" data-uid="k2-chart-1" data-pool="k2ChartCards" data-chart="screenshot">📷 Screenshot grafik ditempel sebagai gambar</div>
+        <div class="drag-card" draggable="true" tabindex="0" data-uid="k2-chart-2" data-pool="k2ChartCards" data-chart="linked">🔗 Insert → Chart → From Sheets + centang "Link to spreadsheet"</div>
       </div>
       <div class="slots" id="k2ChartSlot">
-        <div class="slot chart-slot" data-slot="chart"><span class="slot-label">Slot “Data dan Grafik” (Data and Chart slot)</span></div>
+        <div class="slot chart-slot" data-slot="chart"><span class="slot-label">Slot "Data dan Grafik"</span></div>
       </div>
 
-      <h3 class="mt-lg">3) Lengkapi kalimat analisis (Complete the analysis sentences)</h3>
+      <h3 class="mt-lg">3) Lengkapi kalimat analisis</h3>
       <p class="analysis-line">
         Jenis sampah terbanyak adalah
         <select id="k2a" class="inline-select" aria-label="Jenis sampah terbanyak">
           <option value="">— pilih —</option>
-          <option value="kertas">Kertas (Paper)</option>
-          <option value="plastik">Plastik (Plastic)</option>
-          <option value="kaleng">Kaleng/Logam (Cans/Metal)</option>
-          <option value="kaca">Kaca (Glass)</option>
+          <option value="kertas">Kertas</option>
+          <option value="plastik">Plastik</option>
+          <option value="kaleng">Kaleng/Logam</option>
+          <option value="kaca">Kaca</option>
         </select>,
         yaitu
         <select id="k2b" class="inline-select" aria-label="Persentase">
@@ -389,65 +377,56 @@
       </div>
       <p class="feedback" id="k2Feedback" role="status"></p>
 
-      <h3 class="mt-lg">☑️ Daftar Periksa Kegiatan 2 (Activity 2 Checklist)</h3>
+      <h3 class="mt-lg">☑️ Daftar Periksa Kegiatan 2</h3>
       <ul class="checklist" id="k2Checklist">
-        <li data-check="order"><span class="box">☐</span> Urutan laporan: Latar Belakang → Data dan Grafik → Analisis → Kesimpulan</li>
-        <li data-check="link"><span class="box">☐</span> Grafik disisipkan <strong>tertaut</strong>, bukan screenshot <em>(Chart inserted as a link, not a screenshot)</em></li>
-        <li data-check="analysis"><span class="box">☐</span> Kalimat analisis memakai angka yang benar <em>(Analysis sentences use correct numbers)</em></li>
-        <li data-check="source"><span class="box">☐</span> Mencantumkan sumber data: “Data Bank Sampah SMPN 19 Bekasi, 2026” <em>(Data source stated)</em></li>
+        <li data-check="order"><span class="box">☐</span> Urutan: Latar Belakang → Data dan Grafik → Analisis → Kesimpulan</li>
+        <li data-check="link"><span class="box">☐</span> Grafik disisipkan <strong>tertaut</strong>, bukan screenshot</li>
+        <li data-check="analysis"><span class="box">☐</span> Kalimat analisis memakai angka yang benar</li>
+        <li data-check="source"><span class="box">☐</span> Mencantumkan sumber data: "Data Bank Sampah SMPN 19 Bekasi, 2026"</li>
       </ul>
     </div>
   </section>
 
-  <!-- ==================== LAYAR 5 — KEGIATAN 3 ==================== -->
+  <!-- ==================== LAYAR 5 ==================== -->
   <section id="screen-5" class="screen" aria-labelledby="h-k3">
     <div class="card">
       <span class="chip">🖥️ Kegiatan 3 (Activity 3)</span>
-      <h2 id="h-k3">Slides Presenter (Membuat Presentasi di Slides)</h2>
-      <p class="lead">
-        Buat 3 slide ringkas. Aturan: <strong>maksimal 3 poin per slide</strong> dan <strong>ukuran huruf minimal 24pt</strong>.
-        <em>(Make 3 concise slides. Rules: max 3 bullets per slide, font size at least 24pt.)</em>
-      </p>
+      <h2 id="h-k3">Slides Presenter</h2>
+      <p class="lead">Buat 3 slide ringkas. Aturan: <strong>maksimal 3 poin per slide</strong> dan <strong>ukuran huruf minimal 24pt</strong>.</p>
 
       <div class="grid grid-3" id="k3Slides">
         <article class="slide-card">
-          <h4>Slide 1 — Judul <em>(Title)</em></h4>
-          <label class="field"><span>Judul slide (Slide title)</span>
+          <h4>Slide 1 — Judul</h4>
+          <label class="field"><span>Judul slide</span>
             <input id="k3s1title" type="text" maxlength="60" placeholder="Bank Sampah SMPN 19 Bekasi"></label>
-          <label class="field"><span>Poin (Bullets, satu per baris)</span>
-            <textarea id="k3s1bullets" rows="3" placeholder="Nama kelompok
-Kelas
-Tanggal"></textarea></label>
+          <label class="field"><span>Poin (satu per baris)</span>
+            <textarea id="k3s1bullets" rows="3" placeholder="Nama kelompok&#10;Kelas&#10;Tanggal"></textarea></label>
         </article>
         <article class="slide-card">
-          <h4>Slide 2 — Grafik <em>(Chart)</em></h4>
-          <label class="field"><span>Judul slide (Slide title)</span>
+          <h4>Slide 2 — Grafik</h4>
+          <label class="field"><span>Judul slide</span>
             <input id="k3s2title" type="text" maxlength="60" placeholder="Data Sampah 4 Minggu"></label>
-          <label class="field"><span>Poin (Bullets, satu per baris)</span>
-            <textarea id="k3s2bullets" rows="3" placeholder="Total 191 kg
-Kertas terbanyak 90 kg
-Nilai Rp 499.000"></textarea></label>
+          <label class="field"><span>Poin (satu per baris)</span>
+            <textarea id="k3s2bullets" rows="3" placeholder="Total 191 kg&#10;Kertas terbanyak 90 kg&#10;Nilai Rp 499.000"></textarea></label>
         </article>
         <article class="slide-card">
-          <h4>Slide 3 — Kesimpulan <em>(Conclusion)</em></h4>
-          <label class="field"><span>Judul slide (Slide title)</span>
+          <h4>Slide 3 — Kesimpulan</h4>
+          <label class="field"><span>Judul slide</span>
             <input id="k3s3title" type="text" maxlength="60" placeholder="Kesimpulan &amp; Saran"></label>
-          <label class="field"><span>Poin (Bullets, satu per baris)</span>
-            <textarea id="k3s3bullets" rows="3" placeholder="Sampah bertambah tiap minggu
-Perlu penambahan tempat sampah
-Lanjutkan program bank sampah"></textarea></label>
+          <label class="field"><span>Poin (satu per baris)</span>
+            <textarea id="k3s3bullets" rows="3" placeholder="Sampah bertambah tiap minggu&#10;Perlu penambahan tempat sampah&#10;Lanjutkan program bank sampah"></textarea></label>
         </article>
       </div>
 
       <div class="field mt-lg">
-        <label for="k3Font">🔠 Ukuran huruf slide (Slide font size): <strong id="k3FontPreview">18 pt</strong></label>
-        <input type="range" id="k3Font" min="12" max="40" step="1" value="18" aria-describedby="k3FontHint">
-        <p class="small" id="k3FontHint">Geser minimal ke 24pt agar terbaca dari belakang kelas. <em>(Slide to at least 24pt so it is readable from the back of the class.)</em></p>
+        <label for="k3Font">🔠 Ukuran huruf slide: <strong id="k3FontPreview">18 pt</strong></label>
+        <input type="range" id="k3Font" min="12" max="40" step="1" value="18">
+        <p class="small" id="k3FontHint">Geser minimal ke 24pt agar terbaca dari belakang kelas.</p>
       </div>
 
-      <h3 class="mt-lg">🎨 Mini-Game Readability (Keterbacaan)</h3>
-      <p class="small">Pilih kombinasi warna teks dan latar yang paling mudah dibaca. <em>(Choose the most readable text and background colour combination.)</em></p>
-      <div id="k3Readability" class="quiz-box"><div class="quiz-q"><p>Pilih kombinasi teks dan latar yang paling mudah dibaca dari jauh. <em>(Choose the most readable text &amp; background combination.)</em></p><button type="button" class="swatch-btn"><span class="swatch" style="background:#FFFFFF;color:#1A1A1A">Aa Bb</span><span>Hitam di putih (Black on white)</span></button><button type="button" class="swatch-btn"><span class="swatch" style="background:#FFFFFF;color:#FFEB3B">Aa Bb</span><span>Kuning di putih (Yellow on white)</span></button><button type="button" class="swatch-btn"><span class="swatch" style="background:#F9A825;color:#FFFFFF">Aa Bb</span><span>Putih di kuning (White on yellow)</span></button><button type="button" class="swatch-btn"><span class="swatch" style="background:#E3F2FD;color:#BDBDBD">Aa Bb</span><span>Abu muda di biru muda (Light gray on light blue)</span></button></div></div>
+      <h3 class="mt-lg">🎨 Mini-Game Readability</h3>
+      <p class="small">Pilih kombinasi warna teks dan latar yang paling mudah dibaca.</p>
+      <div id="k3Readability" class="quiz-box"></div>
 
       <div class="btn-row">
         <button id="btnCheckK3" class="btn secondary" type="button">✅ <span data-i18n="btnCheck">Periksa (Check)</span></button>
@@ -457,48 +436,45 @@ Lanjutkan program bank sampah"></textarea></label>
     </div>
   </section>
 
-  <!-- ==================== LAYAR 6 — KEGIATAN 4 ==================== -->
+  <!-- ==================== LAYAR 6 ==================== -->
   <section id="screen-6" class="screen" aria-labelledby="h-k4">
     <div class="card">
       <span class="chip">🧪 Kegiatan 4 (Activity 4)</span>
-      <h2 id="h-k4">The Update Test (Uji “Ubah Data”)</h2>
-      <p class="lead">
-        Ubah sel <code>E2</code> (Plastik Minggu 4) dari <strong>21</strong> menjadi <strong>30 kg</strong>, lalu amati apa yang berubah.
-        <em>(Change cell E2 from 21 to 30 kg, then observe what changes.)</em>
-      </p>
+      <h2 id="h-k4">The Update Test (Uji "Ubah Data")</h2>
+      <p class="lead">Ubah sel <code>E2</code> (Plastik Minggu 4) dari <strong>21</strong> menjadi <strong>30 kg</strong>, lalu amati apa yang berubah.</p>
 
       <div class="btn-row">
-        <button id="btnUpdateData" class="btn accent" type="button">🔄 <span data-i18n="btnUpdate">Ubah Data Sekarang (Change the Data Now)</span></button>
+        <button id="btnUpdateData" class="btn accent" type="button">🔄 <span data-i18n="btnUpdate">Ubah Data Sekarang</span></button>
       </div>
 
       <div class="table-scroll mt-lg">
         <table class="sheet-table compact" id="k4Table">
           <thead>
-            <tr><th scope="col">Bagian (Part)</th><th scope="col">Sebelum (Before)</th><th scope="col">Sesudah (After)</th></tr>
+            <tr><th scope="col">Bagian</th><th scope="col">Sebelum</th><th scope="col">Sesudah</th></tr>
           </thead>
           <tbody>
-            <tr><td>Total Plastik</td><td>66 kg</td><td>—</td></tr>
-            <tr><td>Total Minggu 4</td><td>59 kg</td><td>—</td></tr>
-            <tr><td>Total seluruh sampah</td><td>191 kg</td><td>—</td></tr>
-            <tr><td>Rata-rata per minggu</td><td>47,75 kg</td><td>—</td></tr>
-            <tr><td>Nilai rupiah Plastik</td><td>Rp 198.000</td><td>—</td></tr>
-            <tr><td>Total nilai rupiah</td><td>Rp 499.000</td><td>—</td></tr>
-            <tr><td>Kenaikan Minggu 1 → 4</td><td>—</td><td>—</td></tr>
-            <tr><td>Persentase Plastik</td><td>34,6%</td><td>—</td></tr>
-            <tr><td>Persentase Kertas</td><td>47,1%</td><td>—</td></tr>
+            <tr><td>Total Plastik</td><td>66 kg</td><td id="a-plastik">—</td></tr>
+            <tr><td>Total Minggu 4</td><td>59 kg</td><td id="a-m4">—</td></tr>
+            <tr><td>Total seluruh sampah</td><td>191 kg</td><td id="a-total">—</td></tr>
+            <tr><td>Rata-rata per minggu</td><td>47,75 kg</td><td id="a-avg">—</td></tr>
+            <tr><td>Nilai rupiah Plastik</td><td>Rp 198.000</td><td id="a-nilai">—</td></tr>
+            <tr><td>Total nilai rupiah</td><td>Rp 499.000</td><td id="a-totalnilai">—</td></tr>
+            <tr><td>Kenaikan Minggu 1 → 4</td><td>—</td><td id="a-naik">—</td></tr>
+            <tr><td>Persentase Plastik</td><td>34,6%</td><td id="a-pctp">—</td></tr>
+            <tr><td>Persentase Kertas</td><td>47,1%</td><td id="a-pctk">—</td></tr>
           </tbody>
         </table>
       </div>
 
-      <h3 class="mt-lg">Apa yang terjadi pada setiap objek? (What happens to each object?)</h3>
-      <p class="small">Pilih satu jawaban untuk setiap objek. <em>(Choose one answer for each object.)</em></p>
+      <h3 class="mt-lg">Apa yang terjadi pada setiap objek?</h3>
+      <p class="small">Pilih satu jawaban untuk setiap objek.</p>
       <div id="k4Questions" class="quiz-box"></div>
 
-      <h3 class="mt-lg">✍️ Alasan berbasis bukti (Evidence-based reasoning)</h3>
-      <p class="small">Tulis minimal 20 karakter: mengapa kalimat analisis tetap harus diperiksa manual? <em>(Write at least 20 characters: why must the analysis sentences still be checked manually?)</em></p>
+      <h3 class="mt-lg">✍️ Alasan berbasis bukti</h3>
+      <p class="small">Tulis minimal 20 karakter: mengapa kalimat analisis tetap harus diperiksa manual?</p>
       <label class="field">
-        <span class="sr-only">Alasan (Reason)</span>
-        <textarea id="k4Reason" rows="3" maxlength="300" placeholder="Karena kalimat analisis berisi angka yang diketik manual, sehingga bisa jadi tidak ikut berubah saat data di Sheets diubah."></textarea>
+        <span class="sr-only">Alasan</span>
+        <textarea id="k4Reason" rows="3" maxlength="300" placeholder="Karena kalimat analisis berisi angka yang diketik manual..."></textarea>
       </label>
 
       <div class="btn-row">
@@ -509,12 +485,12 @@ Lanjutkan program bank sampah"></textarea></label>
     </div>
   </section>
 
-  <!-- ==================== LAYAR 7 — KEGIATAN 5 ==================== -->
+  <!-- ==================== LAYAR 7 ==================== -->
   <section id="screen-7" class="screen" aria-labelledby="h-k5">
     <div class="card">
       <span class="chip">🤝 Kegiatan 5 (Activity 5)</span>
-      <h2 id="h-k5">Peer Review &amp; Kesimpulan (Penilaian Sejawat &amp; Kesimpulan)</h2>
-      <p class="lead">Bayangkan kamu menilai karya teman. Berikan satu pujian dan satu saran yang membangun. <em>(Imagine reviewing a friend’s work. Give one compliment and one constructive suggestion.)</em></p>
+      <h2 id="h-k5">Peer Review &amp; Kesimpulan</h2>
+      <p class="lead">Berikan satu pujian dan satu saran yang membangun untuk karya teman.</p>
 
       <label class="field">
         <span>Pujian (Compliment)</span>
@@ -522,20 +498,22 @@ Lanjutkan program bank sampah"></textarea></label>
       </label>
       <label class="field">
         <span>Saran (Suggestion)</span>
-        <input id="k5Suggestion" type="text" maxlength="120" placeholder="Sebaiknya kalimat analisisnya ditambah penjelasan mengapa kertas paling banyak.">
+        <input id="k5Suggestion" type="text" maxlength="120" placeholder="Sebaiknya kalimat analisisnya ditambah penjelasan.">
       </label>
 
       <h3 class="mt-lg">Bandingkan Hipotesis Awal dengan Kesimpulan Akhir</h3>
+      <p class="small">Hipotesis awalmu: <span id="k5HypoDisplay">— (belum diisi di Kegiatan 0)</span></p>
       <label class="field">
-        <span>Hipotesis awalmu (Your first hypothesis)</span>
+        <span>Hipotesis awalmu (bisa diedit)</span>
         <textarea id="k5Hypothesis" rows="2" maxlength="200" placeholder="Jika data di Sheets diubah, grafik dan laporan ikut berubah."></textarea>
       </label>
       <label class="field">
-        <span>Kesimpulan akhirmu (Your final conclusion)</span>
+        <span>Kesimpulan akhirmu</span>
         <textarea id="k5Conclusion" rows="2" maxlength="200" placeholder="Ternyata grafik yang tertaut ikut berubah, tetapi kalimat analisis harus diperiksa manual."></textarea>
       </label>
+      <p class="feedback" id="k5Validation"></p>
 
-      <h3 class="mt-lg">Exit Ticket (Tiket Keluar) — 3 kalimat</h3>
+      <h3 class="mt-lg">Exit Ticket — 3 kalimat</h3>
       <label class="field">
         <span>Kalimat 1</span>
         <input id="k5Exit1" type="text" maxlength="120" placeholder="Hari ini saya belajar bahwa ...">
@@ -549,7 +527,7 @@ Lanjutkan program bank sampah"></textarea></label>
         <input id="k5Exit3" type="text" maxlength="120" placeholder="Saya akan menerapkan ini dengan cara ...">
       </label>
 
-      <h3 class="mt-lg">Skala Perasaan (Feeling Scale)</h3>
+      <h3 class="mt-lg">Skala Perasaan</h3>
       <div class="feeling-scale" id="k5Feeling">
         <button type="button" class="feel-btn" data-feel="1">😞</button>
         <button type="button" class="feel-btn" data-feel="2">🙁</button>
@@ -561,73 +539,128 @@ Lanjutkan program bank sampah"></textarea></label>
       <div class="btn-row">
         <button id="btnFinish" class="btn primary" type="button">🏁 <span data-i18n="btnFinish">Selesaikan Misi (Finish Mission)</span></button>
       </div>
+      <p class="error-text" id="k5Error" role="alert" hidden></p>
       <p class="feedback" id="k5Feedback" role="status"></p>
     </div>
 
-    <div class="card" id="missionCompleteCard" hidden="">
+    <div class="card" id="resultPanel" hidden>
       <h2>🎉 Mission Complete (Misi Selesai)</h2>
-      <p>Skor akhir (Final score): <strong id="finalScore">0</strong>/150</p>
-      <h3>Badge yang Dikumpulkan (Collected Badges)</h3>
-      <ul id="finalBadges"></ul>
-      <h3>Ringkasan Jawaban (Answer Summary)</h3>
-      <div id="answerSummary"></div>
-      <h3>Riwayat 3 Percobaan Terakhir (Last 3 Attempts)</h3>
-      <div id="historyList"></div>
-      <h3>Kartu Bukti Belajar (Learning Evidence Card)</h3>
-      <div id="evidenceCard"></div>
+      <p><strong>Nama:</strong> <span id="resultName">—</span></p>
+      <p><strong>Skor akhir:</strong> <span id="resultScore">0</span>/150</p>
+      <p><strong>Grade:</strong> <span id="resultGrade">—</span></p>
+
+      <h3>Badge yang Dikumpulkan</h3>
+      <ul id="resultBadges"></ul>
+
+      <h3>Ringkasan Jawaban</h3>
+      <ul id="resultSummary"></ul>
+
+      <h3>Riwayat 3 Percobaan Terakhir</h3>
+      <ul id="resultHistory"></ul>
+
+      <h3>Kartu Bukti Belajar</h3>
+      <canvas id="shareCanvas" width="600" height="360" style="max-width:100%; border-radius:8px; border:1px solid #ddd;"></canvas>
+
       <div class="btn-row">
         <button id="btnPrint" class="btn secondary" type="button">🖨️ Cetak (Print)</button>
-        <button id="btnRestart" class="btn primary" type="button">🔄 Ulangi Misi (Restart Mission)</button>
+        <button id="btnRestart" class="btn primary" type="button">🔄 Ulangi Misi (Restart)</button>
       </div>
     </div>
   </section>
 
   <!-- ==================== PANDUAN GURU ==================== -->
-  <section id="teacherGuide" class="screen" hidden="">
+  <section id="teacherGuide" class="screen" hidden>
     <div class="card">
       <h2>Panduan Guru (Teacher Guide)</h2>
-      <p class="small">Halaman ini hanya tampil bila alamat diakhiri <code>?guru=1</code>. <em>(This page appears only with <code>?guru=1</code>.)</em></p>
+      <p class="small">Halaman ini hanya tampil bila alamat diakhiri <code>?guru=1</code>.</p>
       <h3>Kunci Jawaban Singkat</h3>
       <ul>
-        <li>Kegiatan 1: F2=<code>=SUM(B2:E2)</code> → 66 kg; H2=<code>=F2*G2</code> → Rp 198.000; B6=<code>=SUM(B2:B5)</code> → 40 kg; B8=<code>=AVERAGE(B6:E6)</code> → 47,75 kg; B9=<code>=MAX(F2:F5)</code> → 90 kg.</li>
+        <li>Kegiatan 1: F2=<code>=SUM(B2:E2)</code> → 66; H2=<code>=F2*G2</code> → 198.000; B6=<code>=SUM(B2:B5)</code> → 40; B8=<code>=AVERAGE(B6:E6)</code> → 47,75; B9=<code>=MAX(F2:F5)</code> → 90.</li>
         <li>Kegiatan 2: Urutan Latar Belakang → Data dan Grafik → Analisis → Kesimpulan. Grafik memakai Link to spreadsheet. Analisis: Kertas, 47,1%, Rp 499.000.</li>
-        <li>Kegiatan 3: Maksimal 3 poin per slide, font ≥ 24pt, kombinasi kontras tinggi (teks gelap di latar terang atau sebaliknya).</li>
-        <li>Kegiatan 4: Total Sheets berubah otomatis; grafik Docs dan Slides perlu Update; kalimat analisis perlu perbaikan manual. Nilai baru: 75 kg, 200 kg, 50 kg, Rp 526.000, 70%, 37,5%, 45%.</li>
+        <li>Kegiatan 3: Maks 3 poin/slide, font ≥ 24pt, kontras tinggi.</li>
+        <li>Kegiatan 4: Total Sheets berubah otomatis; grafik Docs/Slides perlu Update; kalimat analisis perlu perbaikan manual.</li>
         <li>Kuis Sumatif: 1-b, 2-c, 3-b, 4-c, 5-b.</li>
-        <li>Kuis Diagnostik: 1-b, 2-b, 3-a, 4-Salah, 5-jawaban bebas.</li>
+        <li>Kuis Diagnostik: 1-b, 2-b, 3-a, 4-Salah.</li>
       </ul>
       <h3>Rubrik Mini (Skor Maksimal 150)</h3>
       <table class="rubric-table">
-        <thead>
-          <tr><th>Bagian</th><th>Fokus Penilaian</th><th>Maks</th></tr>
-        </thead>
+        <thead><tr><th>Bagian</th><th>Fokus</th><th>Maks</th></tr></thead>
         <tbody>
-          <tr><td>Kegiatan 0</td><td>Ketepatan pilihan cara terintegrasi, alasan, dan kualitas hipotesis</td><td>20</td></tr>
-          <tr><td>Kegiatan 1</td><td>Ketepatan 5 rumus dan pemilihan jenis grafik</td><td>30</td></tr>
-          <tr><td>Kegiatan 2</td><td>Struktur laporan, grafik tertaut, ketepatan angka analisis</td><td>25</td></tr>
-          <tr><td>Kegiatan 3</td><td>Ringkasnya slide, ukuran huruf, keterbacaan warna</td><td>20</td></tr>
-          <tr><td>Kegiatan 4</td><td>Penalaran kritis “Uji Ubah Data” dan alasan berbukti</td><td>30</td></tr>
-          <tr><td>Kegiatan 5</td><td>Kualitas pujian dan saran sejawat</td><td>15</td></tr>
+          <tr><td>Kegiatan 0</td><td>Pilihan cara, alasan, hipotesis</td><td>20</td></tr>
+          <tr><td>Kegiatan 1</td><td>5 rumus + jenis grafik</td><td>30</td></tr>
+          <tr><td>Kegiatan 2</td><td>Struktur, grafik tertaut, analisis</td><td>25</td></tr>
+          <tr><td>Kegiatan 3</td><td>Ringkas, font, keterbacaan</td><td>20</td></tr>
+          <tr><td>Kegiatan 4</td><td>Penalaran kritis + alasan</td><td>30</td></tr>
+          <tr><td>Kegiatan 5</td><td>Pujian dan saran sejawat</td><td>15</td></tr>
           <tr><td>Exit Ticket</td><td>Refleksi tiga kalimat</td><td>10</td></tr>
         </tbody>
       </table>
-      <h3>Tips Diferensiasi</h3>
-      <ul>
-        <li>Perlu bantuan: dampingi saat mengisi F2 dan H2, gunakan tombol “Periksa” berulang tanpa batas.</li>
-        <li>Sesuai: minta siswa menjelaskan lisan mengapa grafik perlu ditekan Update.</li>
-        <li>Tantangan: minta siswa membuat survei OSIS “Cara Murid Berangkat ke Sekolah” (100 murid) dengan pie chart dan rekomendasi.</li>
-      </ul>
     </div>
   </section>
 
 </main>
 
-<!-- ============================ FOOTER ============================ -->
 <footer class="app-footer no-print">
   <p>© 2026 SMP Negeri 19 Kota Bekasi — LKPD Interaktif Berpikir Komputasional</p>
 </footer>
 
-<!-- ============================ SCRIPTS ============================ -->
-<script src="script.js"></script>
+<!-- ============ TOAST & MODALS ============ -->
+<div id="toastContainer" class="toast-container" aria-live="polite" aria-atomic="true"></div>
+
+<div class="modal-overlay" id="modalConfirm" hidden role="dialog" aria-modal="true" aria-labelledby="confirmTitle">
+  <div class="modal">
+    <h3 id="confirmTitle">Konfirmasi (Confirm)</h3>
+    <p id="confirmText"></p>
+    <div class="btn-row">
+      <button class="btn secondary" data-close="modalConfirm" type="button">Batal (Cancel)</button>
+      <button class="btn primary" id="confirmYes" type="button">Ya (Yes)</button>
+    </div>
+  </div>
+</div>
+
+<div class="modal-overlay" id="modalBadge" hidden role="dialog" aria-modal="true">
+  <div class="modal badge-modal">
+    <div class="badge-icon-large" id="badgeIcon">🏆</div>
+    <h3 id="badgeTitle">Badge Baru!</h3>
+    <p id="badgeDesc"></p>
+    <div class="btn-row">
+      <button class="btn primary" data-close="modalBadge" type="button">OK</button>
+    </div>
+  </div>
+</div>
+
+<div class="modal-overlay" id="modalGlossary" hidden role="dialog" aria-modal="true">
+  <div class="modal modal-large">
+    <h3>📖 Kamus Misi (Mission Dictionary)</h3>
+    <input type="search" id="glossarySearch" placeholder="Cari istilah... (Search terms...)" aria-label="Cari istilah">
+    <div class="table-scroll">
+      <table class="glossary-table">
+        <thead><tr><th>English</th><th>Indonesia</th><th>Penjelasan</th></tr></thead>
+        <tbody id="glossaryBody"></tbody>
+      </table>
+    </div>
+    <div class="btn-row">
+      <button class="btn primary" data-close="modalGlossary" type="button">Tutup (Close)</button>
+    </div>
+  </div>
+</div>
+
+<div class="modal-overlay" id="modalRules" hidden role="dialog" aria-modal="true">
+  <div class="modal">
+    <h3>🏅 Aturan Emas (Golden Rules)</h3>
+    <ol class="rules-list">
+      <li>Baca instruksi sebelum mengklik.</li>
+      <li>Gunakan satu sumber data: Sheets.</li>
+      <li>Sisipkan grafik tertaut, bukan screenshot.</li>
+      <li>Periksa ulang angka sebelum menyimpan.</li>
+      <li>Beri pujian dan saran yang membangun.</li>
+    </ol>
+    <div class="btn-row">
+      <button class="btn primary" data-close="modalRules" type="button">Mengerti (Got it)</button>
+    </div>
+  </div>
+</div>
+
+<script src="script.js" defer></script>
 </body>
 </html>
